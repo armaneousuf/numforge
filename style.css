@@ -40,7 +40,7 @@ body {
 .wrapper {
   max-width: 700px;
   margin: 0 auto;
-  padding: 44px 18px 80px;
+  padding: 32px 16px 72px;
 }
 
 /* ── HEADER ── */
@@ -79,10 +79,15 @@ header {
 }
 .logo-title {
   font-family: "Baloo Da 2", cursive;
-  font-size: 1.55rem;
+  font-size: 1.35rem;
   font-weight: 800;
   color: var(--text);
   letter-spacing: 0.2px;
+}
+@media (min-width: 400px) {
+  .logo-title {
+    font-size: 1.55rem;
+  }
 }
 .logo-title span {
   color: var(--yellow);
@@ -95,38 +100,34 @@ header {
 
 /* ── TABS ── */
 .tab-scroll {
-  overflow-x: auto;
-  padding-bottom: 2px;
-  margin-bottom: 24px;
-  scrollbar-width: none;
-}
-.tab-scroll::-webkit-scrollbar {
-  display: none;
+  margin-bottom: 22px;
 }
 .tab-wrap {
-  display: inline-flex;
-  gap: 3px;
-  min-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
   background: var(--layer1);
   border: 1px solid var(--border);
-  border-radius: 50px;
-  padding: 4px;
+  border-radius: 14px;
+  padding: 5px;
 }
 .tab-btn {
-  flex: 1;
-  white-space: nowrap;
-  padding: 8px 13px;
+  padding: 9px 6px;
   border: none;
-  border-radius: 50px;
+  border-radius: 10px;
   cursor: pointer;
   font-family: "Hind Siliguri", sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 600;
   background: transparent;
   color: var(--text3);
   transition:
     background 0.18s,
     color 0.18s;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .tab-btn:hover:not(.active) {
   color: var(--text2);
@@ -159,6 +160,17 @@ header {
   color: #fff;
 }
 
+@media (min-width: 520px) {
+  .tab-wrap {
+    grid-template-columns: repeat(6, 1fr);
+    border-radius: 50px;
+  }
+  .tab-btn {
+    border-radius: 50px;
+    padding: 8px 10px;
+  }
+}
+
 /* ── PANELS ── */
 .panel {
   display: none;
@@ -183,7 +195,12 @@ header {
   background: var(--layer1);
   border: 1px solid var(--border);
   border-radius: var(--r);
-  padding: 24px;
+  padding: 18px 16px;
+}
+@media (min-width: 480px) {
+  .card {
+    padding: 24px;
+  }
 }
 .card + .card {
   margin-top: 14px;
@@ -231,16 +248,27 @@ header {
 /* ── INPUTS ── */
 .irow {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.irow-inline {
+  display: flex;
   gap: 9px;
   align-items: flex-end;
-  flex-wrap: wrap;
+}
+@media (min-width: 480px) {
+  .irow {
+    flex-direction: row;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
 }
 .igrp {
   display: flex;
   flex-direction: column;
   gap: 5px;
   flex: 1;
-  min-width: 100px;
+  min-width: 0;
 }
 .ilbl {
   font-size: 0.73rem;
@@ -250,19 +278,25 @@ header {
 
 .ni {
   width: 100%;
-  padding: 11px 14px;
+  padding: 12px 14px;
   border: 1px solid var(--border2);
   border-radius: var(--rs);
   background: var(--layer2);
   color: var(--text);
   font-family: "Baloo Da 2", cursive;
-  font-size: 1.25rem;
+  font-size: 16px;
   font-weight: 700;
   text-align: center;
   outline: none;
   transition:
     border-color 0.18s,
     background 0.18s;
+  -webkit-appearance: none;
+}
+@media (min-width: 480px) {
+  .ni {
+    font-size: 1.25rem;
+  }
 }
 .ni:focus {
   background: var(--layer3);
@@ -289,36 +323,46 @@ header {
 }
 
 .sep {
-  display: flex;
-  align-items: center;
-  color: var(--text3);
-  font-weight: 700;
-  font-family: "Baloo Da 2", cursive;
-  font-size: 0.95rem;
-  padding-bottom: 11px;
-  flex-shrink: 0;
+  display: none;
 }
 .fslash {
-  display: flex;
-  align-items: center;
-  font-size: 1.8rem;
-  color: var(--text3);
-  font-weight: 200;
-  padding-bottom: 11px;
+  display: none;
+}
+@media (min-width: 480px) {
+  .sep {
+    display: flex;
+    align-items: center;
+    color: var(--text3);
+    font-weight: 700;
+    font-family: "Baloo Da 2", cursive;
+    font-size: 0.95rem;
+    padding-bottom: 11px;
+    flex-shrink: 0;
+  }
+  .fslash {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    color: var(--text3);
+    font-weight: 200;
+    padding-bottom: 11px;
+  }
 }
 
 .btn {
-  padding: 11px 20px;
+  padding: 12px 20px;
   border: none;
   border-radius: var(--rs);
   font-family: "Hind Siliguri", sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
+  width: 100%;
   transition:
     opacity 0.15s,
     transform 0.15s;
@@ -330,6 +374,11 @@ header {
 .btn:active {
   opacity: 1;
   transform: translateY(0);
+}
+@media (min-width: 480px) {
+  .btn {
+    width: auto;
+  }
 }
 .btn.by {
   background: var(--yellow);
@@ -612,7 +661,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   flex-wrap: wrap;
   padding: 9px 0;
 }
@@ -622,6 +671,8 @@ header {
   border-radius: 12px;
   padding: 12px 18px;
   text-align: center;
+  flex: 1;
+  min-width: 90px;
 }
 .fdisp {
   display: inline-flex;
@@ -659,7 +710,7 @@ header {
   border: 1px solid var(--border2);
   border-radius: 9px;
   padding: 9px 12px;
-  font-size: 1.15rem;
+  font-size: 16px;
   font-family: "Baloo Da 2", cursive;
   font-weight: 700;
   color: var(--text);
@@ -669,10 +720,17 @@ header {
   text-align: center;
   appearance: none;
   -webkit-appearance: none;
+  width: 100%;
 }
 .opsel option {
   background: var(--layer2);
   color: var(--text);
+}
+@media (min-width: 480px) {
+  .opsel {
+    font-size: 1.15rem;
+    width: auto;
+  }
 }
 
 /* ── INFO NOTE ── */
@@ -702,9 +760,14 @@ header {
 /* ── LEARN ── */
 .lgrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
-  gap: 11px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
   margin-bottom: 14px;
+}
+@media (min-width: 480px) {
+  .lgrid {
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  }
 }
 .lcrd {
   background: var(--layer1);
@@ -788,12 +851,28 @@ header {
   padding-top: 2px;
 }
 
-@media (max-width: 500px) {
-  .irow {
-    flex-direction: column;
-  }
-  .btn {
-    width: 100%;
-    justify-content: center;
+/* fraction ops grid mobile fix */
+.frac-op-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+.frac-op-grid .fo-half {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.frac-op-middle {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+@media (min-width: 480px) {
+  .frac-op-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 9px;
+    align-items: end;
   }
 }

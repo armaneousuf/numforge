@@ -8,7 +8,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Baloo+Da+2:wght@500;600;700;800&display=swap"
     rel="stylesheet" />
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -115,12 +115,12 @@
           <div class="elbl" style="color:var(--orange)">ভগ্নাংশ সরলীকরণ</div>
         </div>
         <div class="irow">
-          <div class="igrp" style="max-width:145px">
+          <div class="igrp">
             <div class="ilbl">লব (উপরের সংখ্যা)</div>
             <input class="ni fo" id="frac-n" type="number" placeholder="৩" />
           </div>
           <div class="fslash">／</div>
-          <div class="igrp" style="max-width:145px">
+          <div class="igrp">
             <div class="ilbl">হর (নিচের সংখ্যা)</div>
             <input class="ni fo" id="frac-d" type="number" placeholder="৬" />
           </div>
@@ -135,9 +135,9 @@
           <div class="edot" style="background:var(--rose)"></div>
           <div class="elbl" style="color:var(--rose)">ভগ্নাংশের হিসাব</div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:9px;align-items:end;margin-bottom:13px">
-          <div>
-            <div class="ilbl" style="margin-bottom:5px">প্রথম ভগ্নাংশ</div>
+        <div class="frac-op-grid">
+          <div class="fo-half">
+            <div class="ilbl">প্রথম ভগ্নাংশ</div>
             <input class="ni fo" id="fo-n1" type="number" placeholder="লব" style="margin-bottom:5px" />
             <input class="ni fo" id="fo-d1" type="number" placeholder="হর" />
           </div>
@@ -150,8 +150,8 @@
               <option value="/">÷</option>
             </select>
           </div>
-          <div>
-            <div class="ilbl" style="margin-bottom:5px">দ্বিতীয় ভগ্নাংশ</div>
+          <div class="fo-half">
+            <div class="ilbl">দ্বিতীয় ভগ্নাংশ</div>
             <input class="ni fo" id="fo-n2" type="number" placeholder="লব" style="margin-bottom:5px" />
             <input class="ni fo" id="fo-d2" type="number" placeholder="হর" />
           </div>
