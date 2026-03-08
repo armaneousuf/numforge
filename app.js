@@ -349,12 +349,134 @@ function checkFracOp() {
   );
 }
 
-function onEnt(id, fn) {
-  document.getElementById(id).addEventListener("keydown", (e) => {
-    if (e.key === "Enter") fn();
+/* SQRT TRICK */
+function checkSqrt() {
+  const err = document.getElementById("sqrt-err");
+  hide("sqrt-res");
+  err.classList.remove("on");
+  const val = document.getElementById("sqrt-input").value;
+  const n = parseInt(val);
+  if (!val || isNaN(n) || n < 2 || n > 999999) {
+    err.classList.add("on");
+    return;
+  }
+
+  const sqrtN = Math.sqrt(n);
+  const sqrtF = Math.floor(sqrtN);
+  const cols = [
+    "var(--cyan)",
+    "var(--green)",
+    "var(--yellow)",
+    "var(--violet)",
+    "var(--orange)",
+    "var(--rose)",
+  ];
+
+  // Special: 2
+  if (n === 2) {
+    show(
+      "sqrt-res",
+      "rc",
+      `
+      <div class="rhead"><div class="rico">⭐</div><div><div class="rtitle">২ — মৌলিক সংখ্যা</div><div class="rsub">একমাত্র জোড় মৌলিক</div></div></div>
+      <div class="rdiv"></div>
+      <div class="rtext">২ এর ক্ষেত্রে √২ ≈ ১.৪১ → পরীক্ষার কিছু নেই। সরাসরি মৌলিক।</div>`,
+    );
+    return;
+  }
+
+  // Even check
+  if (n % 2 === 0) {
+    show(
+      "sqrt-res",
+      "rv",
+      `
+      <div class="rhead"><div class="rico">🧩</div><div><div class="rtitle">${n} — যৌগিক সংখ্যা</div><div class="rsub">${n} = ২ × ${n / 2}</div></div></div>
+      <div class="rdiv"></div>
+      <div class="rtext"><strong>${n}</strong> জোড় সংখ্যা। √${n} ≈ ${sqrtN.toFixed(2)} হলেও প্রথম পরীক্ষাতেই <strong>২</strong> দিয়ে ভাগ যায়।</div>
+      <div class="sqrt-step-list">
+        <div class="sqrt-step-row hit"><div class="sqrt-step-n" style="background:var(--rose);color:#fff">১</div><div>√${n} ≈ ${sqrtN.toFixed(3)} → ${sqrtF} পর্যন্ত পরীক্ষা করতে হবে।</div></div>
+        <div class="sqrt-step-row hit"><div class="sqrt-step-n" style="background:var(--rose);color:#fff">২</div><div>${n} ÷ ২ = ${n / 2} — ভাগ যায়! ∴ যৌগিক।</div></div>
+      </div>`,
+    );
+    return;
+  }
+
+  // Main loop
+  const steps = [];
+  let divisorFound = null;
+  steps.push({
+    txt: `√${n} ≈ ${sqrtN.toFixed(3)} → ৩ থেকে ${sqrtF} পর্যন্ত বিজোড় সংখ্যা পরীক্ষা করো।`,
+    type: "info",
   });
+
+  for (let i = 3; i <= sqrtF; i += 2) {
+    if (n % i === 0) {
+      divisorFound = i;
+      steps.push({
+        txt: `${n} ÷ ${i} = ${n / i} — ভাগ যায়! ∴ ${n} যৌগিক।`,
+        type: "hit",
+      });
+      break;
+    } else {
+      steps.push({
+        txt: `${n} ÷ ${i} = ${(n / i).toFixed(2)}… ভাগ যায় না।`,
+        type: "ok",
+      });
+    }
+  }
+
+  if (!divisorFound) {
+    steps.push({
+      txt: `৩ থেকে ${sqrtF} — কোনো ভাজকই নেই। ∴ ${n} মৌলিক! ✓`,
+      type: "win",
+    });
+  }
+
+  const stepsH = steps
+    .map((s, i) => {
+      const bg =
+        s.type === "win"
+          ? "var(--yellow)"
+          : s.type === "hit"
+            ? "var(--rose)"
+            : s.type === "info"
+              ? "var(--cyan)"
+              : cols[i % cols.length];
+      const textColor = s.type === "win" || s.type === "hit" ? "#fff" : "#111";
+      return `<div class="sqrt-step-row ${s.type === "win" ? "win" : s.type === "hit" ? "hit" : ""}">
+      <div class="sqrt-step-n" style="background:${bg};color:${textColor}">${i + 1}</div>
+      <div>${s.txt}</div>
+    </div>`;
+    })
+    .join("");
+
+  const isPrime = !divisorFound;
+  const cls = isPrime ? "ry" : "rv";
+  const summary = isPrime
+    ? `<strong>${n}</strong> এর ক্ষেত্রে মাত্র <strong>${steps.length - 1}টি</strong> ভাজক পরীক্ষা করতে হয়েছে (${sqrtF} পর্যন্ত)। সব ভাগে বাকি থেকেছে — তাই মৌলিক।`
+    : `<strong>${n}</strong> = <strong>${divisorFound}</strong> × <strong>${n / divisorFound}</strong>। √${n} ≈ ${sqrtN.toFixed(2)}, তাই ${divisorFound} ≤ ${sqrtF} এর মধ্যেই ধরা পড়েছে।`;
+
+  show(
+    "sqrt-res",
+    cls,
+    `
+    <div class="rhead">
+      <div class="rico">${isPrime ? "⭐" : "🧩"}</div>
+      <div>
+        <div class="rtitle">${n} — ${isPrime ? "মৌলিক সংখ্যা" : "যৌগিক সংখ্যা"}</div>
+        <div class="rsub">√${n} ≈ ${sqrtN.toFixed(3)} → ${sqrtF} পর্যন্ত পরীক্ষা হয়েছে</div>
+      </div>
+    </div>
+    <div class="rdiv"></div>
+    <div class="rtext" style="margin-bottom:10px">${summary}</div>
+    <div class="flbl" style="margin-bottom:6px">ধাপে ধাপে</div>
+    <div class="sqrt-step-list">${stepsH}</div>`,
+  );
 }
+
 onEnt("single-input", checkSingle);
+onEnt("sqrt-input", checkSqrt);
 onEnt("cp-a", checkCoprime);
 onEnt("cp-b", checkCoprime);
 onEnt("gcd-a", checkGCD);

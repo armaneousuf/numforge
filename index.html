@@ -13,7 +13,7 @@
 
 <body>
   <div class="wrapper">
-
+  
     <!-- HEADER -->
     <header>
       <div style="display:flex;justify-content:center;margin-bottom:10px">
@@ -22,9 +22,9 @@
           <div class="logo-title"><span>সংখ্যাশালা</span></div>
         </div>
       </div>
-      <div class="tagline">মৌলিক · যৌগিক · সহমৌলিক · গসাগু · লসাগু · ভগ্নাংশ</div>
+      <div class="tagline">মৌলিক · যৌগিক · সহমৌলিক · গসাগু · লসাগু · ভগ্নাংশ · √ কৌশল</div>
     </header>
-
+  
     <!-- TABS -->
     <div class="tab-scroll">
       <div class="tab-wrap">
@@ -34,9 +34,10 @@
         <button class="tab-btn t-v" onclick="switchTab('lcm',this)">লসাগু</button>
         <button class="tab-btn t-o" onclick="switchTab('frac',this)">ভগ্নাংশ</button>
         <button class="tab-btn t-r" onclick="switchTab('learn',this)">শিখি</button>
+        <button class="tab-btn t-sq" onclick="switchTab('sqrt',this)">√ কৌশল</button>
       </div>
     </div>
-
+  
     <!-- ══ PANEL 1 ══ -->
     <div class="panel active" id="panel-single">
       <div class="card ay">
@@ -52,7 +53,7 @@
         <div class="rb" id="single-res"></div>
       </div>
     </div>
-
+  
     <!-- ══ PANEL 2 ══ -->
     <div class="panel" id="panel-coprime">
       <div class="card ag">
@@ -70,7 +71,7 @@
         <div class="rb" id="cp-res"></div>
       </div>
     </div>
-
+  
     <!-- ══ PANEL 3 ══ -->
     <div class="panel" id="panel-gcd">
       <div class="card ac">
@@ -88,7 +89,7 @@
         <div class="rb" id="gcd-res"></div>
       </div>
     </div>
-
+  
     <!-- ══ PANEL 4 ══ -->
     <div class="panel" id="panel-lcm">
       <div class="card av">
@@ -106,7 +107,7 @@
         <div class="rb" id="lcm-res"></div>
       </div>
     </div>
-
+  
     <!-- ══ PANEL 5 ══ -->
     <div class="panel" id="panel-frac">
       <div class="card ao">
@@ -129,7 +130,7 @@
         <div class="emsg" id="frac-err">⚠️ সঠিক লব ও হর দাও। হর শূন্য হতে পারবে না।</div>
         <div class="rb" id="frac-res"></div>
       </div>
-
+  
       <div class="card ar">
         <div class="eyebrow">
           <div class="edot" style="background:var(--rose)"></div>
@@ -161,7 +162,52 @@
         <div class="rb" id="fo-res"></div>
       </div>
     </div>
-
+  
+    <!-- ══ PANEL 7: SQRT TRICK ══ -->
+    <div class="panel" id="panel-sqrt">
+      <div class="card ac">
+        <div class="eyebrow">
+          <div class="edot" style="background:var(--cyan)"></div>
+          <div class="elbl" style="color:var(--cyan)">বর্গমূল কৌশল — Square Root Trick</div>
+        </div>
+        <!-- CONCEPT BOX -->
+        <div class="sqrt-concept">
+          <div class="sqrt-concept-title">💡 কেন √n পর্যন্ত দেখলেই যথেষ্ট?</div>
+          <div class="sqrt-concept-body">
+            যদি <strong>n = a × b</strong> হয়, তাহলে <strong>a</strong> এবং <strong>b</strong> এর মধ্যে
+            ছোটটি অবশ্যই <strong>≤ √n</strong>।<br>
+            তাই <strong>২ থেকে √n</strong> পর্যন্ত কোনো ভাজক না পেলে — n নিশ্চিতভাবে মৌলিক!
+          </div>
+          <div class="sqrt-formula-row">
+            <div class="sqrt-formula-box">n = a × b &nbsp;→&nbsp; min(a,b) ≤ √n</div>
+          </div>
+          <!-- EXAMPLE WALKTHROUGH -->
+          <div class="sqrt-example-label">উদাহরণ: ৩৭ মৌলিক কিনা?</div>
+          <div class="sqrt-walkthrough">
+            <div class="swalk-step done">√৩৭ ≈ ৬.০৮ → ৬ পর্যন্ত পরীক্ষা করো</div>
+            <div class="swalk-step done">৩৭ ÷ ২ = ১৮.৫ ✗</div>
+            <div class="swalk-step done">৩৭ ÷ ৩ = ১২.৩ ✗</div>
+            <div class="swalk-step done">৩৭ ÷ ৫ = ৭.৪ ✗</div>
+            <div class="swalk-step final">কোনো ভাজক নেই → ৩৭ মৌলিক ⭐</div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- INTERACTIVE CHECKER -->
+      <div class="card ac" style="margin-top:14px">
+        <div class="eyebrow">
+          <div class="edot" style="background:var(--cyan)"></div>
+          <div class="elbl" style="color:var(--cyan)">নিজে চেষ্টা করো</div>
+        </div>
+        <div class="irow">
+          <input class="ni fc" id="sqrt-input" type="number" min="2" max="999999" placeholder="যেকোনো সংখ্যা দাও…" />
+          <button class="btn bc" onclick="checkSqrt()">যাচাই করো →</button>
+        </div>
+        <div class="emsg" id="sqrt-err">⚠️ ২ বা তার বেশি একটি পূর্ণ সংখ্যা দাও।</div>
+        <div class="rb" id="sqrt-res"></div>
+      </div>
+    </div>
+  
     <!-- ══ PANEL 6 ══ -->
     <div class="panel" id="panel-learn">
       <div class="shead">মূল ধারণাসমূহ</div>
@@ -222,7 +268,7 @@
         </div>
       </div>
     </div>
-
+  
   </div>
   <footer>Created by <a href="https://github.com/armaneousuf">Arman Eousuf</a></footer>
   <script src="app.js"></script>
